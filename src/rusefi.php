@@ -21,7 +21,7 @@ class Rusefi
 	public $forum_url = "https://rusefi.com/forum";
 	public $forum_login_url, $forum_user_profile_url;
 
-	private $reqLogFields = array("time", "rpm", "clt", "tps", "air_fuel_ratio", "engine_load", "vehicle_speed", "throttle_pedal_position");
+	private $reqLogFields = array("time", "rpm", "clt", "tps", "air_fuel_ratio", "vehicle_speed", "throttle_pedal_position");
 
 	function __construct($msqur)
 	{
