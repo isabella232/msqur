@@ -953,14 +953,15 @@ class DB
 				error("Cannot calculate CRC for this tune!");
 				return FALSE;
 			}
+			if (DEBUG) debug("findMSQ: crc16=".$crc16);
 
 			DB::tryBind($st, ":crc", $crc16);
 			$st->execute();
 			$result = $st->fetch(PDO::FETCH_ASSOC);
 			if ($result && count($result) > 0)
 			{
-				$st->closeCursor();
 				$id = $result["id"];
+				$st->closeCursor();
 			} else {
 				$id = -1;
 			}

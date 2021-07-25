@@ -404,6 +404,7 @@ $(function() {
 	
 	function uploadClick()
 	{
+		enableUploadButton(false);
 		$('div#upload form').submit();
 	}
 	

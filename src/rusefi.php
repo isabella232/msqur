@@ -373,7 +373,7 @@ class Rusefi
 				return FALSE;
 			}
 			if ($id > 0) {
-				$err_msg = "This file already exists in our Database!";
+				$err_msg = "This file already exists in our Database! (id=$id)";
 				return FALSE;
 			}
 		}
