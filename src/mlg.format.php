@@ -352,7 +352,7 @@ class MlgParser {
 		IDX_ETB_DUTY=>"etb_duty", );
 	private $reqFieldsForDataPoints = array(
 		// additional fields
-		IDX_IAT => ["iat", "mat"], IDX_MAF => "maf", IDX_MAP => "map", IDX_VBATT => "vbatt", IDX_LOAD => ["engine_load", "fuelingLoad"], IDX_ADVANCE => "timing", IDX_MASS_FLOW => ["maf_air_flow", "air_flow"],
+		IDX_IAT => ["iat", "mat"], IDX_MAF => "maf", IDX_MAP => "map", IDX_VBATT => "vbatt", IDX_LOAD => ["fuel_load", "engine_load", "fuelingLoad"], IDX_ADVANCE => "timing", IDX_MASS_FLOW => ["maf_air_flow", "air_flow"],
 		IDX_IDLE_POS => "idle_air_valve", IDX_LAST_INJECT => "fuel_last_injection",
 	);
 	private $additionalFields = array(
