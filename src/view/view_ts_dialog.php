@@ -151,7 +151,9 @@ function printField($i, $msqMap, $msq, $field, $isPanelDisabled) {
 			echo "<select class='ts-field-item ts-field-item-select' id='".$fieldId."' $disabled $readOnly>\r\n";
         	for ($i = 4; $i < count($cons); $i++) {
 				$selected = ($curValue == ($i - 4)) ? " selected='selected' " : "";
-				echo "<option class='ts-field-item-option' $selected>".printTsItem($cons[$i], $clr)."</option>\r\n";
+				if ($cons[$i] != "INVALID") {
+					echo "<option class='ts-field-item-option' $selected>".printTsItem($cons[$i], $clr)."</option>\r\n";
+				}
         	}
       		echo "</select>\r\n";
 		}
