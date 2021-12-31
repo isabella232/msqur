@@ -337,13 +337,6 @@ class INI
 					switch ($key)
 					{
 						case "table": //start of new curve
-							if (!empty($table))
-							{//save the last one, if any
-								if (DEBUG) debug('Parsed table: ' . $table['id']);
-								//var_export($curve);
-								$values[$currentSection][$table['id']] = $table;
-							}
-							
 							$value = array_map('trim', explode(',', $value));
 							if (count($value) == 4)
 							{
@@ -354,6 +347,14 @@ class INI
 								//$table['page'] = $value[3]; //Don't care for this one AFAIK.
 							}
 							else if (DEBUG) debug("Invalid table: $key");
+							
+							// save the table
+							if (!empty($table))
+							{
+								if (DEBUG) debug('Parsed table: ' . $table['id']);
+								//var_export($curve);
+								$values[$currentSection][$table['id']] = &$table;
+							}
 							break;
 						case "topicHelp":
 							if (is_array($table))
