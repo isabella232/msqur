@@ -111,7 +111,12 @@ function processChart(that) {
 		data: data,
 		options: {
 			legend: { display: false },
-		}
+			scales: {
+				xAxes: [{
+					type: 'linear',
+				}]
+			},
+		},
 	};
 
 	var chart = new Chart(ctx, config);
@@ -142,8 +147,10 @@ function tbl2data(tbl)
 		});
 
 		//.html() gets first element in set, .text() all matched elements
-		lbls.push(parseFloat(that.find('th').text()));
-		cells.push(parseFloat(that.find('td').text()));
+		var xval = parseFloat(that.find('th').text());
+		var yval = parseFloat(that.find('td').text());
+		lbls.push(xval);
+		cells.push({'x': xval, 'y': yval});
 	});
 	
 	var data = {
