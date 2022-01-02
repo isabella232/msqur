@@ -565,6 +565,14 @@ class Rusefi
 		}
 		return $value;
 	}
+
+	public function roundMsqConstant($c, $digits)
+	{
+		if (is_array($c)) {
+			return array_map(function($v) use ($digits) { return round($v, $digits); }, $c);
+		}
+		return round($c, $digits);
+	}
 	
 	public function getMsqOutput($o)
 	{

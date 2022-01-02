@@ -105,8 +105,11 @@ if (isset($_GET['msq1']) && isset($_GET['msq2'])) {
     $consts = array_unique($consts);
     $panels = array();
 	foreach ($consts as $c) {
-		$v0 = isset($msqs[0]->msqMap["Constants"][$c]) ? $rusefi->getMsqConstantFull($c, $msqs[0], $digits) : null;
-		$v1 = isset($msqs[1]->msqMap["Constants"][$c]) ? $rusefi->getMsqConstantFull($c, $msqs[1], $digits) : null;
+		$v0 = isset($msqs[0]->msqMap["Constants"][$c]) ? $rusefi->getMsqConstantFull($c, $msqs[0], $digits0) : null;
+		$v1 = isset($msqs[1]->msqMap["Constants"][$c]) ? $rusefi->getMsqConstantFull($c, $msqs[1], $digits1) : null;
+		// round user values to the ini-file precision
+		$v0 = $rusefi->roundMsqConstant($v0, $digits0);
+		$v1 = $rusefi->roundMsqConstant($v1, $digits1);
 		// pack the values for comparison
 		$sv0 = serialize($v0);
 		$sv1 = serialize($v1);
