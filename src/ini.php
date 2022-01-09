@@ -140,6 +140,7 @@ class INI
 		
 		$globals = array();
 		$curve = array();
+		$tables = array();
 		$table = array();
 		$currentSection = NULL;
 		$values = array();
@@ -340,21 +341,18 @@ class INI
 							$value = array_map('trim', explode(',', $value));
 							if (count($value) == 4)
 							{
-								$table = array();
+								$tables[] = array();
+								$table = &$tables[count($tables) - 1];
 								$table['id'] = $value[0];
 								$table['map3d_id'] = $value[1];
 								$table['desc'] = trim($value[2], '"');
 								//$table['page'] = $value[3]; //Don't care for this one AFAIK.
+
+								if (DEBUG) debug('Parsing table: ' . $table['id']);
+								// save the table
+								$values[$currentSection][$table['id']] = &$tables[count($tables) - 1];
 							}
 							else if (DEBUG) debug("Invalid table: $key");
-							
-							// save the table
-							if (!empty($table))
-							{
-								if (DEBUG) debug('Parsed table: ' . $table['id']);
-								//var_export($curve);
-								$values[$currentSection][$table['id']] = &$table;
-							}
 							break;
 						case "topicHelp":
 							if (is_array($table))
