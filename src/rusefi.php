@@ -680,7 +680,7 @@ class Rusefi
 				$value = array_map(function($v) use ($cons) { return bcdiv($v, $cons[5], 100); }, $value);
 			} else if ($cons[0] == "scalar") {
 				// scale
-				$value = bcdiv($value, $cons[4], 100);
+				$value = bcdiv($value, floatval($cons[4]), 100);
 			} else if ($cons[0] == "string") {
 				$numBytes = $cons[3];
 			}
