@@ -229,7 +229,6 @@ function tbl3data(tbl)
 		if (this.textContent)
 			xAxis.push(parseFloat(this.textContent));
 	});
-	console.log(xAxis);
 	var rows = tbl.find('tbody tr');
 	var data = [];
 	

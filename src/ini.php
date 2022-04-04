@@ -339,7 +339,7 @@ class INI
 					{
 						case "table": //start of new curve
 							$value = array_map('trim', explode(',', $value));
-							if (count($value) == 4)
+							if (count($value) == 3 || count($value) == 4)	// most are 4 args, but we accept also 3
 							{
 								$tables[] = array();
 								$table = &$tables[count($tables) - 1];
