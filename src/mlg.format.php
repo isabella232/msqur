@@ -348,7 +348,7 @@ class MlgParser {
 	///////////////////////////////////////////
 
 	private $reqFieldsForStats = array(IDX_TIME=>"time", IDX_RPM=>"rpm", IDX_CLT=>"clt", IDX_TPS=>"tps", IDX_PPS=>"throttle_pedal_position", 
-		IDX_AFR=>"air_fuel_ratio", IDX_TARGET_AFR=>"fuel_target_afr", IDX_VE=>"fuel_ve", IDX_SPEED=>"vehicle_speed", IDX_TRIGGER_ERR=>"trg_err",
+		IDX_AFR=>"air_fuel_ratio", IDX_TARGET_AFR=>"fuel_target_afr", IDX_VE=>"fuel_ve", IDX_SPEED=>"vehicle_speed", IDX_TRIGGER_ERR = >["trg_err", "trigger_error_counter"],
 		IDX_ETB_DUTY=>"etb_duty", );
 	private $reqFieldsForDataPoints = array(
 		// additional fields
