@@ -94,11 +94,67 @@ function doChart(event, ui) {
 	processChart(that);
 }
 
-function processChart(that) {
-	// sort ASC for 2D and DESC for 3D tables
-	$('table').tablesorter({sortList: [[0, (that.find('div.table').length != 0) ? 1 : 0]] });
+var chart3dIdx = 0;
+function add3dChart(that) {
+	// disable click on the table
+	var tbl = that.find('div.table');
+	tbl.prop("onclick", null).off("click");
 	
-	if (that.find('tbody').length == 0 || that.find('div.table').length != 0) return; //do nothing if panel is closing, or if 3d table
+	// add html elements
+	var chartId = 'chart3dbut' + (++chart3dIdx);
+	var $but = $('<label class="tsChart3dButton" for="' + chartId + '">3D</label><input class="tsChart3dButton" type="checkbox" id="' + chartId + '" />');
+	var $container = $('<div class="chart3d"></div>');
+    $but.insertBefore(tbl);
+    $container.insertBefore(tbl);
+	$('#' + chartId).button();
+
+	$('#' + chartId).click(function() {
+		$but.toggleClass('checked');
+		if (this.checked) {
+			// https://github.com/visjs/vis-graph3d
+			var options = {
+    			width:  tbl.width() + 20 + 'px',
+        		height: tbl.height() - 10 + 'px',
+        		style: 'surface',
+        		showPerspective: true,
+        		showGrid: true,
+        		tooltip: true,
+        		showShadow: false,
+        		keepAspectRatio: false,
+        		verticalRatio: 1.0,
+        		yCenter: '40%'
+      		};
+
+  			// fill the data
+  			var data = new vis.DataSet();
+			var tbldata = tbl3data($(that[0]));
+  			var counter = 0;
+  			for (const d of tbldata) {
+				data.add({id:counter++, x:d.x, y:d.y, z:d.z, style:d.z});
+  			}
+  			tbl.hide();
+  			$container.show();
+  			var graph = new vis.Graph3d($container[0], data, options);
+  		} else {
+  			tbl.show();
+  			$container.hide();
+  		}
+	});
+}
+
+function processChart(that) {
+	var is3D = that.find('div.table').length != 0;
+	// sort ASC for 2D and DESC for 3D tables
+	$('table').tablesorter({sortList: [[0, is3D ? 1 : 0]] });
+
+	if (that.find('tbody').length == 0) return; //do nothing if panel is closing
+	// add 3d optional view for 3d tables
+	if (is3D) {	
+		add3dChart(that);
+	    return;
+	}
+	
+	if (that.find('tbody').length == 0 || is3D) return; //do nothing if panel is closing, or if 3d table
 	
 	//Find data
 	var tbl = that.find('tbody').get(0);
@@ -161,6 +217,43 @@ function tbl2data(tbl)
 			borderColor: 'blue',
 		}],
 	};
+	
+	return data;
+}
+
+function tbl3data(tbl)
+{
+	var xAxis = [];
+	var cols = tbl.find('thead tr th');
+	cols.each(function(i) {
+		if (this.textContent)
+			xAxis.push(parseFloat(this.textContent));
+	});
+	console.log(xAxis);
+	var rows = tbl.find('tbody tr');
+	var data = [];
+	
+	rows.each(function(i) {
+		var that = $(this); //ick
+
+		// round the x-axis values
+		that.find('th,td').each(function(i) {
+			if ($(this).attr("digits")) {
+				var v = parseFloat(this.textContent);
+				this.textContent = v.toFixed($(this).attr("digits"));
+				
+			}
+		});
+
+		//.html() gets first element in set, .text() all matched elements
+		var yval = parseFloat(that.find('th').text());
+		var cols = that.find('td');
+		cols.each(function(i) {
+			var zval = parseFloat(this.textContent);
+			var d = {'x':xAxis[i], 'y': yval, 'z': zval};
+			data.push(d);
+		});
+	});
 	
 	return data;
 }

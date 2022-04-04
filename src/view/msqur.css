@@ -871,3 +871,28 @@ footer a:hover {
 .ui-tooltip-content {
 	white-space: pre-wrap;
 }
+
+.tsChart3dButton {
+	z-index: 10000;
+	float: right;
+	display: inline-block !important;
+	padding: 5px !important;
+	margin: 5px 10px !important;
+	height: 20px;
+	font-size: 10px !important;
+	font-weight: bold;
+	line-height: 10px !important;
+}
+
+.tsChart3dButton.checked {
+    border: 1px solid #003eff !important;
+    background: #007fff !important;
+    font-weight: normal !important;
+    color: #ffffff !important;
+}
+
+.chart3d {
+    border: 1px solid #c5c5c5 !important;
+    display: none;
+	z-index: 10000;
+}
