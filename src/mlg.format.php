@@ -369,10 +369,14 @@ class MlgParser {
 	private $numDataPoints = 2048;
 
 	function storeDataPoint($idx) {
+		$nextIdx = intval($this->state->dpIdx);
 		for ($i = 0; $i < count($this->dataPointFields); $i++) {
 			$d = $this->state->dataPoints[$i][$idx] / $this->state->dpSubIdx;
 			$d = round($d * $this->dpScale[$i] + $this->dpShift[$i]);
-			$this->state->dataPoints[$i][$idx] = max(0, min(255, $d));
+			$d = max(0, min(255, $d));
+			for ($k = $idx; $k < $nextIdx; $k++) {
+				$this->state->dataPoints[$i][$k] = $d;
+			}
 		}
 		$this->state->dpSubIdx = 0;
 	}
