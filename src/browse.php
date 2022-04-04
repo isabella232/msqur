@@ -93,11 +93,16 @@ if ($action == "delete")
 	die;
 } else if ($action == "update_log_crc")
 {
-	$log_id = isset($_GET['log']) ? intval($_GET['log']) : -1;
-	if ($log_id > 0) {
-		echo "Processing log $log_id and updating DB (please wait!)...<br>\r\n";
-		$msqur->db->updateLogDataPoints($log_id);
-		echo "Done!\r\n";
+	$log_ids = isset($_GET['log']) ? array_map('intval', explode(':', $_GET['log'])) : array();
+	if (count($log_ids) == 1) {
+		$log_ids[1] = $log_ids[0];
+	}
+	if (count($log_ids) == 2) {
+		for ($log_id = $log_ids[0]; $log_id <= $log_ids[1]; $log_id++) {
+			echo "Processing log $log_id and updating DB (please wait!)...<br>\r\n";
+			$msqur->db->updateLogDataPoints($log_id);
+			echo "Done!\r\n";
+		}
 	} else {
 		echo "Error! Please specify log ID!\r\n";
 	}
