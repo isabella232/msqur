@@ -685,6 +685,11 @@ footer a:hover {
 	background-clip: padding-box;
 }
 
+.ts-field-highlight2 {
+	background-color: #dfdf00 !important;
+	background-clip: padding-box;
+}
+
 .ts-field-item {
 	margin: auto 0 auto auto;
 	font-size: 0.8em;

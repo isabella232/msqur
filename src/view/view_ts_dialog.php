@@ -55,7 +55,7 @@ function getDialogTitle($msqMap, $dlg) {
 	return $dlgTitle;
 }
 
-function printField($i, $msqMap, $msq, $field, $isPanelDisabled) {
+function printField($i, $msqMap, $msq, $field, $isPanelDisabled, $idx) {
 	global $rusefi;
 
 	$clr = "";
@@ -122,7 +122,8 @@ function printField($i, $msqMap, $msq, $field, $isPanelDisabled) {
 			echo "<img src=\"view/img/ts-icons/hint.png\" ".$hint.">";
 		echo "</td>\r\n";
 
-		$hightlight = isset($field["highlight"]) ? " ts-field-highlight" : "";
+		$highlightClass = ($idx & 1) == 0 ? "ts-field-highlight" : "ts-field-highlight2";
+		$hightlight = isset($field["highlight"]) ? " " . $highlightClass : "";
 
 		$fieldId = $field[1] . $i;
 		$addToLabel = "";
@@ -230,6 +231,7 @@ if ($drawCurve) {
 <table class='ts-field-table' cellspacing="2" cellpadding="2"><tbody>
 <?php
 	if (isset($dlg["field"])) {
+		$idx = 0;
 		foreach ($dlg["field"] as $field) {
 			//$f = getDialogTitle($msqMap, $field);
 			//print_r($field);
@@ -238,7 +240,8 @@ if ($drawCurve) {
 <tr>
 <?php
 			}
-			printField($i, $msqMap, $msq, $field, $isDialogDisabled);
+			printField($i, $msqMap, $msq, $field, $isDialogDisabled, $idx);
+			$idx++;
 			if (!$isHorizontal) {
 ?>
 </tr>
