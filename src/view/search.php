@@ -26,7 +26,7 @@
 						<option value="fi" title="The way God intended">Forced Induction</option>
 					</select>
 				</td>
-				<td><input name="firmware" type="text" placeholder="MS2Extra" maxlength="32" style="width:5em;"/>/<input name="version" type="text" placeholder="" maxlength="32" style="width:5em;"/></td>
+				<td><input name="firmware" type="text" placeholder="rusEFI" maxlength="32" style="width:5em;" disabled/>/<input name="version" type="text" placeholder="" maxlength="32" style="width:5em;"/></td>
 				<!-- td><input name="uploadDate" type="date" /></td -->
 			</tr>
 		</table>
