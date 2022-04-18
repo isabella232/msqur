@@ -397,7 +397,7 @@ class Rusefi
 		return isset($tunes[$tune_id]);
 	}
 
-	public function unpackLogInfo(&$results)
+	public function unpackLogInfo(&$results, $skipDataPoints = false)
 	{
 		if (!is_array($results))
 			return;
@@ -408,10 +408,12 @@ class Rusefi
 			if (is_object($info))
 				$info = get_object_vars($info);
 			$r = array_merge($r, $info);
-			if ($r["data"] == NULL) {
-				$this->msqur->db->updateLogDataPoints($r["mid"]);
+			if (!$skipDataPoints) {
+				if ($r["data"] == NULL) {
+					$this->msqur->db->updateLogDataPoints($r["mid"]);
+				}
+				$r["data"] = $mlgParser->unpackDataPoints($r["data"]);
 			}
-			$r["data"] = $mlgParser->unpackDataPoints($r["data"]);
 		}
 		return $results;
 	}

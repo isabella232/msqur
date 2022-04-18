@@ -307,7 +307,7 @@ $bqForLogs = array();
 $bqForLogs['e.user_id'] = $bq['user_id'];
 $bqForLogs['name'] = $bq['name'];
 $resultsLog = $msqur->browse($bqForLogs, $page, "log");
-$rusefi->unpackLogInfo($resultsLog);
+$rusefi->unpackLogInfo($resultsLog, true);
 echo '<div>Logs:';
 putResultsInTable($resultsLog, "log");
 echo '</div>';
