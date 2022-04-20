@@ -53,10 +53,6 @@
 	</div>
 <?php }
 	
-	foreach ($logGeneral as $lfn=>$lf) {
-		putField($lfn, $lf, $logValues[$lfn], true);
-	}
-
 if (isset($logValues["data"])) {
 	// get partial data for graph display
 	$data = array();
@@ -196,6 +192,11 @@ if (isset($logValues["data"])) {
 <td class=logTd>
 <?php
 }
+
+foreach ($logGeneral as $lfn=>$lf) {
+	putField($lfn, $lf, $logValues[$lfn], true);
+}
+
 ?>
 <table class=logTable border=0><tr>
 <?php
