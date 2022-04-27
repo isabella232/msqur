@@ -151,6 +151,7 @@ class INI
 		$skipByDirective = false;
 		$settings = INI::getDefaultSettings($optionValues);
 		$curSettingGroup = NULL;
+		$curDialog = null;
 
 		foreach ($ini as $line)
 		{
@@ -234,7 +235,10 @@ class INI
 						$curDialog = INI::defaultSectionHandler($value, false, $msq, $outputs);
 						if (!is_array($curDialog))
 							$curDialog = array($curDialog);
+					} else if ($key == "indicatorPanel") {
+						$curDialog = null;
 					}
+
 					if (is_array($curDialog))
 					{
 						$dlg = INI::defaultSectionHandler($value, false, $msq, $outputs);
